@@ -3,7 +3,7 @@
 
 namespace App\Service;
 
-use App\Exception\AppUnavailableException;
+use App\Exception\ApiUnavailableException;
 use App\Exception\ClientException;
 use App\Model\UserDto;
 use App\Security\User;
@@ -37,7 +37,7 @@ class ApiClient
         $response = curl_exec($query);
         // Ошибка с биллинга
         if ($response === false) {
-            throw new AppUnavailableException('Сервис временно недоступен.
+            throw new ApiUnavailableException('Сервис временно недоступен.
             Попробуйте авторизоваться позднее');
         }
         curl_close($query);
@@ -49,7 +49,7 @@ class ApiClient
     }
 
     /**
-     * @throws AppUnavailableException
+     * @throws ApiUnavailableException
      */
     public function auth(string $request): UserDto
     {
@@ -65,7 +65,7 @@ class ApiClient
         $response = curl_exec($query);
         // Ошибка с биллинга
         if ($response === false) {
-            throw new AppUnavailableException('Возникли технические неполадки. Попробуйте позднее');
+            throw new ApiUnavailableException('Возникли технические неполадки. Попробуйте позднее');
         }
         curl_close($query);
 
@@ -73,7 +73,7 @@ class ApiClient
         $result = json_decode($response, true);
         if (isset($result['code'])) {
             if ($result['code'] === 401) {
-                throw new AppUnavailableException('Проверьте правильность введёного логина и пароля');
+                throw new ApiUnavailableException('Проверьте правильность введёного логина и пароля');
             }
         }
         /** @var UserDto $userDto */
@@ -83,7 +83,7 @@ class ApiClient
     }
 
     /**
-     * @throws AppUnavailableException
+     * @throws ApiUnavailableException
      */
     public function getCurrentUser(User $user, DecodingJwt $decodingJwt)
     {
@@ -91,7 +91,7 @@ class ApiClient
         $decodingJwt->decoding($user->getApiToken());
 
         // Запрос в сервис биллинг, получение данных
-        $query = curl_init($this->startUri . '/api/v1/users/current');
+        $query = curl_init($this->startUri . '/api/v1/users/profile');
         curl_setopt($query, CURLOPT_HTTPGET, 1);
         curl_setopt($query, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($query, CURLOPT_HTTPHEADER, [
@@ -101,7 +101,7 @@ class ApiClient
         $response = curl_exec($query);
         // Ошибка с биллинга
         if ($response === false) {
-            throw new AppUnavailableException('Сервис временно недоступен. 
+            throw new ApiUnavailableException('Сервис временно недоступен. 
             Попробуйте авторизоваться позднее');
         }
         curl_close($query);
@@ -109,14 +109,14 @@ class ApiClient
         // Ответа от сервиса
         $result = json_decode($response, true);
         if (isset($result['code'])) {
-            throw new AppUnavailableException($result['message']);
+            throw new ApiUnavailableException($result['message']);
         }
 
         return $response;
     }
 
     /**
-     * @throws AppUnavailableException
+     * @throws ApiUnavailableException
      * @throws ClientException
      */
     public function register(UserDto $dataUser): UserDto
@@ -135,7 +135,7 @@ class ApiClient
 
         // Ошибка с биллинга
         if ($response === false) {
-            throw new AppUnavailableException('Сервис временно недоступен. 
+            throw new ApiUnavailableException('Сервис временно недоступен. 
             Попробуйте зарегистрироваться позднее');
         }
         // Ответа от сервиса
@@ -145,7 +145,7 @@ class ApiClient
                 throw new ClientException($result['message']);
             }
 
-            throw new AppUnavailableException('Сервис временно недоступен. 
+            throw new ApiUnavailableException('Сервис временно недоступен. 
         Попробуйте зарегистрироваться позднее');
         }
         curl_close($query);

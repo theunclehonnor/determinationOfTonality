@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Exception\AppUnavailableException;
+use App\Exception\ApiUnavailableException;
 use App\Model\UserDto;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
@@ -85,7 +85,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator
         try {
             $userDto = $this->apiClient->auth($request);
             $user = User::fromDto($userDto, $this->decodingJwt);
-        } catch (AppUnavailableException $e) {
+        } catch (ApiUnavailableException $e) {
             throw new CustomUserMessageAuthenticationException($e->getMessage());
         }
         return $user;
@@ -102,7 +102,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        return new RedirectResponse($this->urlGenerator->generate('profile'));
     }
 
     protected function getLoginUrl()

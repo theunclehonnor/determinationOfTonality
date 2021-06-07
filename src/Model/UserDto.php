@@ -7,6 +7,9 @@ use JMS\Serializer\Annotation as Serializer;
 
 class UserDto
 {
+    /**
+     * @Serializer\Type("string")
+     */
     private $email;
 
     /**
@@ -143,5 +146,15 @@ class UserDto
     public function setPatronymic(?string $patronymic): void
     {
         $this->patronymic = $patronymic;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
     }
 }

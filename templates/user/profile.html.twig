@@ -3,6 +3,57 @@
 {% block title %}Determination Of Tonality / Профиль{% endblock %}
 
 {% block body %}
-    <h1 class="font_title text-center mt-4">Профиль пользователя</h1>
-
+    <div class="d-flex justify-content-center align-items-center h-75 m-auto">
+        <div class="row d-flex flex-column form-security_style p-5 w-50">
+            <h3 class="text-center mb-4">Профиль</h3>
+            <div class="d-flex justify-content-center">
+                <div class="col-6 d-flex flex-column justify-content-between">
+                    <div class="mb-2">
+                        <p class="profile__title">Фамилия:</p>
+                        <p>{{ userDto.surname }}</p>
+                        <div class="profile__line w-100"></div>
+                    </div>
+                    <div class="mb-2">
+                        <p class="profile__title">Имя:</p>
+                        <p>{{ userDto.name }}</p>
+                        <div class="profile__line w-100"></div>
+                    </div>
+                    <div class="mb-2">
+                        <p class="profile__title">Отчество:</p>
+                        {% if userDto.patronymic  %}
+                            <p>{{ userDto.patronymic }}</p>
+                        {% else %}
+                            <p>-</p>
+                        {% endif %}
+                        <div class="profile__line w-100"></div>
+                    </div>
+                </div>
+                <div class="col-6 d-flex flex-column justify-content-between">
+                    <div class="mb-2">
+                        <p class="profile__title">Email:</p>
+                        <p>{{ userDto.email }}</p>
+                        <div class="profile__line w-100"></div>
+                    </div>
+                    <div class="mb-2">
+                        <p class="profile__title">Название компании:</p>
+                        {% if userDto.nameCompany %}
+                            <p>{{ userDto.nameCompany }}</p>
+                        {% else %}
+                            <p>-</p>
+                        {% endif %}
+                        <div class="profile__line w-100"></div>
+                    </div>
+                    <div class="mb-2">
+                        <p class="profile__title">Роль пользователя:</p>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <p>Администратор</p>
+                        {% else %}
+                            <p>Клиент</p>
+                        {% endif %}
+                        <div class="profile__line w-100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

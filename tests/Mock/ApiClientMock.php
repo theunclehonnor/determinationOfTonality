@@ -4,7 +4,7 @@
 namespace App\Tests\Mock;
 
 use App\Entity\Course;
-use App\Exception\AppUnavailableException;
+use App\Exception\ApiUnavailableException;
 use App\Exception\ClientException;
 use App\Model\CourseDto;
 use App\Model\PayDto;
@@ -159,7 +159,7 @@ class ApiClientMock extends ApiClient
             $userDto->setRefreshToken('911');
             return $userDto;
         }
-        throw new AppUnavailableException('Проверьте правильность введёного логина и пароля');
+        throw new ApiUnavailableException('Проверьте правильность введёного логина и пароля');
     }
 
     public function register(UserDto $dataUser): UserDto
@@ -310,7 +310,7 @@ class ApiClientMock extends ApiClient
         }
 
         if ($index === null) {
-            throw new AppUnavailableException('Данный курс не найден');
+            throw new ApiUnavailableException('Данный курс не найден');
         }
 
         return $this->courses[$index];
@@ -324,7 +324,7 @@ class ApiClientMock extends ApiClient
 
         foreach ($this->courses as $key => $course) {
             if ($course->getCode() === $courseDto->getCode()) {
-                throw new AppUnavailableException('Данный курс уже существует в системе', 405);
+                throw new ApiUnavailableException('Данный курс уже существует в системе', 405);
             }
         }
 
@@ -350,7 +350,7 @@ class ApiClientMock extends ApiClient
             }
         }
         if (!$flag) {
-            throw new AppUnavailableException('Данный курс в системе не найден', 404);
+            throw new ApiUnavailableException('Данный курс в системе не найден', 404);
         }
 
         $this->courses[] = $courseDto;
@@ -374,7 +374,7 @@ class ApiClientMock extends ApiClient
             }
         }
         if (!$flag) {
-            throw new AppUnavailableException('Данный курс в системе не найден', 404);
+            throw new ApiUnavailableException('Данный курс в системе не найден', 404);
         }
         $transaction = new TransactionDto();
         $transaction->setCourseCode($codeCourse);

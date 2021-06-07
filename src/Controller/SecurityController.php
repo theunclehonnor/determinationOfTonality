@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Exception\AppUnavailableException;
+use App\Exception\ApiUnavailableException;
 use App\Exception\ClientException;
 use App\Form\RegistrationType;
 use App\Model\UserDto;
@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('course_index');
+            return $this->redirectToRoute('profile');
         }
 
         // get the login error if there is one
@@ -47,7 +47,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/register", name="app_register")
-     * @throws AppUnavailableException
+     * @throws ApiUnavailableException
      */
     public function register(
         Request $request,
@@ -57,7 +57,7 @@ class SecurityController extends AbstractController
         DecodingJwt $decodingJwt
     ): Response {
         if ($this->getUser()) {
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('profile');
         }
 
         $userDto = new UserDto();
@@ -72,8 +72,8 @@ class SecurityController extends AbstractController
                     'form' => $form->createView(),
                     'errors' => $e->getMessage(),
                 ]);
-            } catch (AppUnavailableException $e) {
-                throw new AppUnavailableException($e->getMessage());
+            } catch (ApiUnavailableException $e) {
+                throw new ApiUnavailableException($e->getMessage());
             }
 
             return $guardHandler->authenticateUserAndHandleSuccess(

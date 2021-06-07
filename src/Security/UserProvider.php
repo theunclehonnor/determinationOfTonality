@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Exception\AppUnavailableException;
+use App\Exception\ApiUnavailableException;
 use App\Model\UserDto;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
@@ -72,7 +72,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
                 $userDto = $this->billingClient->refreshToken($user->getRefreshToken());
                 $user->setApiToken($userDto->getToken());
                 $user->setRefreshToken($userDto->getRefreshToken());
-            } catch (AppUnavailableException $e) {
+            } catch (ApiUnavailableException $e) {
                 throw new \Exception($e->getMessage());
             }
         }

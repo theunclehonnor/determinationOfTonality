@@ -3,6 +3,7 @@
         <a class="navbar-brand" href="{{ path('home') }}">Determination Of Tonality</a>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="navbar__item">
+                <a href="{{ path('profile') }}" class="btn btn-outline-dark" role="button">Профиль</a>
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-dark" role="button">Выход</a>
             </div>
         {% else %}
