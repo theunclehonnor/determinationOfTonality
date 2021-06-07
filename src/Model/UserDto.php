@@ -1,27 +1,43 @@
 <?php
 
+
 namespace App\Model;
 
 use JMS\Serializer\Annotation as Serializer;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class UserDto
 {
-    private $username;
-
     private $email;
 
+    /**
+     * @Serializer\Type("string")
+     */
+    private $username;
+
+    /**
+     * @Serializer\Type("string")
+     */
     private $password;
 
-    private $roles = [];
+    /**
+     * @Serializer\Type("array")
+     */
+    private $roles;
 
+    /**
+     * @Serializer\Type("string")
+     */
     private $surname;
 
+    /**
+     * @Serializer\Type("string")
+     */
     private $name;
 
+    /**
+     * @Serializer\Type("string")
+     */
     private $patronymic;
-
-    private $nameCompany;
 
     /**
      * @Serializer\Type("string")
@@ -33,85 +49,40 @@ class UserDto
      */
     private $refreshToken;
 
-    public function getEmail()
-    {
-        return $this->email;
-    }
+    /**
+     * @Serializer\Type("string")
+     */
+    private $nameCompany;
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function setEmail($email): void
-    {
-        $this->email = $email;
-    }
-
-    public function setPassword($password): void
-    {
-        $this->password = $password;
-    }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(array $roles): void
-    {
-        $this->roles = $roles;
-    }
-
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
-        $this->email = $username;
+        $this->email= $username;
     }
 
-    public function getSurname()
+    public function getPassword(): string
     {
-        return $this->surname;
+        return $this->password;
     }
 
-    public function setSurname($surname): void
+    public function setPassword(?string $password): void
     {
-        $this->surname = $surname;
+        $this->password = $password;
     }
 
-    public function getName()
+    public function getRoles(): ?array
     {
-        return $this->name;
+        return $this->roles;
     }
 
-    public function setName($name): void
+    public function setRoles(?array $roles): void
     {
-        $this->name = $name;
-    }
-
-    public function getPatronymic()
-    {
-        return $this->patronymic;
-    }
-
-    public function setPatronymic($patronymic): void
-    {
-        $this->patronymic = $patronymic;
-    }
-
-    public function getNameCompany()
-    {
-        return $this->nameCompany;
-    }
-
-    public function setNameCompany($nameCompany): void
-    {
-        $this->nameCompany = $nameCompany;
+        $this->roles = $roles;
     }
 
     public function getToken(): ?string
@@ -132,5 +103,45 @@ class UserDto
     public function setRefreshToken(?string $refreshToken): void
     {
         $this->refreshToken = $refreshToken;
+    }
+
+    public function getNameCompany()
+    {
+        return $this->nameCompany;
+    }
+
+    public function setNameCompany(?string $nameCompany): void
+    {
+        $this->nameCompany = $nameCompany;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(?string $surname): void
+    {
+        $this->surname = $surname;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getPatronymic()
+    {
+        return $this->patronymic;
+    }
+
+    public function setPatronymic(?string $patronymic): void
+    {
+        $this->patronymic = $patronymic;
     }
 }

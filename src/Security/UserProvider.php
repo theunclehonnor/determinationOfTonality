@@ -2,14 +2,14 @@
 
 namespace App\Security;
 
-use App\Exception\ApiUnavailableException;
+use App\Exception\AppUnavailableException;
+use App\Model\UserDto;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
 use DateInterval;
 use DateTime;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -17,13 +17,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     private $decodingJwt;
-    private $apiClient;
+    private $billingClient;
 
-    public function __construct(DecodingJwt $decodingJwt, ApiClient $apiClient)
+    public function __construct(DecodingJwt $decodingJwt, ApiClient $billingClient)
     {
         $this->decodingJwt = $decodingJwt;
-        $this->apiClient = $apiClient;
+        $this->billingClient = $billingClient;
     }
+
     /**
      * Symfony calls this method if you use features like switch_user
      * or remember_me.
@@ -31,15 +32,15 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      * If you're not using these features, you do not need to implement
      * this method.
      *
-     * @throws UserNotFoundException if the user is not found
+     * @return UserInterface
+     *
+     * @throws UsernameNotFoundException if the user is not found
      */
-    public function loadUserByIdentifier($identifier): UserInterface
+    public function loadUserByUsername($username)
     {
-        // Load a User object from your data source or throw UserNotFoundException.
-        // The $identifier argument may not actually be a username:
-        // it is whatever value is being returned by the getUserIdentifier()
-        // method in your User class.
-        throw new \Exception('TODO: fill in loadUserByIdentifier() inside '.__FILE__);
+        $user = new User();
+        $user->setEmail($username);
+        return $user;
     }
 
     /**
@@ -55,7 +56,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      *
      * @return UserInterface
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Invalid user class "%s".', get_class($user)));
@@ -68,10 +69,10 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
         if ($time >= $exp) {
             try {
-                $userDto = $this->apiClient->refreshToken($user->getRefreshToken());
+                $userDto = $this->billingClient->refreshToken($user->getRefreshToken());
                 $user->setApiToken($userDto->getToken());
                 $user->setRefreshToken($userDto->getRefreshToken());
-            } catch (ApiUnavailableException $e) {
+            } catch (AppUnavailableException $e) {
                 throw new \Exception($e->getMessage());
             }
         }
@@ -95,23 +96,5 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         // TODO: when encoded passwords are in use, this method should:
         // 1. persist the new password in the user storage
         // 2. update the $user object with $user->setPassword($newEncodedPassword);
-    }
-
-    /**
-     * Symfony calls this method if you use features like switch_user
-     * or remember_me.
-     *
-     * If you're not using these features, you do not need to implement
-     * this method.
-     *
-     * @return UserInterface
-     *
-     * @throws UsernameNotFoundException if the user is not found
-     */
-    public function loadUserByUsername($username)
-    {
-        $user = new User();
-        $user->setEmail($username);
-        return $user;
     }
 }
