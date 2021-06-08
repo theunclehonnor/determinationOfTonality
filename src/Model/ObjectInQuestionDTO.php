@@ -10,6 +10,16 @@ class ObjectInQuestionDTO
     /**
      * @Serializer\Type("string")
      */
+    private $name;
+
+    /**
+     * @Serializer\Type("string")
+     */
+    private $image;
+
+    /**
+     * @Serializer\Type("string")
+     */
     private $link;
 
     /**
@@ -79,5 +89,25 @@ class ObjectInQuestionDTO
     public function setResource(?ResourceDTO $resource): void
     {
         $this->resource = $resource;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 }

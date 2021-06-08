@@ -12,3 +12,8 @@ import './bootstrap';
 // import jquery
 const $ = require('jquery');
 require('bootstrap');
+// require('bootstrap/js/dist/popover');
+// $(document).ready(function() {
+//     $('[data-toggle="popover"]').popover();
+// });
+$(".popover-title").popover();

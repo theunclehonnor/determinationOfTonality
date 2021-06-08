@@ -6,14 +6,17 @@
     <h1 class="font_title text-center mt-4">История</h1>
    <div class="container-fluid w-75">
        {% if reportsDto  %}
-           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mt-3">
+           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mt-4">
                {% for report in reportsDto %}
                    <div class="col mb-5">
                        <div class="card h-100" style="width: 18rem;">
+                           <img src="{{ report.objectInQuestion.image }}" class="card-img-top history__img" alt="{{ report.objectInQuestion.name }}">
                            <div class="card-body">
                                <h5 class="card-title">
-                                   <a class="text-info text-decoration-none" href="{{ report.objectInQuestion.link }}">
-                                        Смартфон vivo Y31 Черный асфальт (V2036)
+                                   <a data-trigger="hover" data-content="{{ report.objectInQuestion.name }}" data-placement="bottom" class="popover-title text-info text-decoration-none" href="{{ report.objectInQuestion.link }}">
+                                        <span class="d-inline-block text-truncate w-100">
+                                            {{ report.objectInQuestion.name }}
+                                        </span>
                                    </a>
                                </h5>
                                <div class="d-flex justify-content-between">
@@ -23,13 +26,13 @@
                            </div>
                            <ul class="list-group list-group-flush">
                                <li class="list-group-item">
-                                   <p><strong>Модель:</strong> report.objectInQuestion.model.name</p>
-                                   <p><strong>Корпус данных:</strong> report.objectInQuestion.model.dataSet</p>
-                                   <p><strong>Классификатор:</strong> report.objectInQuestion.model.classificator</p>
+                                   <p><strong>Модель:</strong> {{ report.objectInQuestion.model.name }}</p>
+                                   <p><strong>Корпус данных:</strong> {{ report.objectInQuestion.model.dataSet }}</p>
+                                   <p><strong>Классификатор:</strong> {{ report.objectInQuestion.model.classificator }}</p>
                                </li>
                                <li class="list-group-item">
                                    <p>
-                                       <strong>Веб-ресурс:</strong>
+                                       <strong>Ресурс:</strong>
                                        <a href="{{ report.objectInQuestion.resource.link }}" class="text-info text-decoration-none">
                                            {{ report.objectInQuestion.resource.name }}
                                        </a>
