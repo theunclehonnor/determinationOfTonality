@@ -10,7 +10,9 @@
                {% for report in reportsDto %}
                    <div class="col mb-5 d-flex justify-content-center">
                        <div class="card h-100 form-history_style" style="width: 18rem;">
-                           <img src="{{ report.objectInQuestion.image }}" class="card-img-top history__img" alt="{{ report.objectInQuestion.name }}">
+                           <div class="d-flex justify-content-center mt-4" style="height: 200px;">
+                               <img src="{{ report.objectInQuestion.image }}" class="card-img-top history__img" alt="{{ report.objectInQuestion.name }}">
+                           </div>
                            <div class="card-body">
                                <h5 class="card-title">
                                    <a data-trigger="hover" data-content="{{ report.objectInQuestion.name }}" data-placement="bottom" class="popover-title text-info text-decoration-none" href="{{ report.objectInQuestion.link }}">

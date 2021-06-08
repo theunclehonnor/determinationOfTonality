@@ -47,6 +47,9 @@ class AnalyzeController extends AbstractController
                     $method .= 'prodoctorov';
                 }
                 $response = $apiClient->analyze($this->getUser(), $data, $method);
+
+                $response = $apiClient->createReport($this->getUser(), $response['id_report']);
+
                 return $this->redirectToRoute('history');
             } catch (ApiUnavailableException | \Exception $e) {
                 return $this->render('analyze/analyzeForm.html.twig', [
