@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Service\DecodingJwt;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -110,7 +110,7 @@ class User implements UserInterface
         $this->apiToken = $apiToken;
     }
 
-    public static function fromDto(UserDto $userDto, DecodingJwt $decodingJwt): self
+    public static function fromDto(UserDTO $userDto, DecodingJwt $decodingJwt): self
     {
         $user = new self();
 

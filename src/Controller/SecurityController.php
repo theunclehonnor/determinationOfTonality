@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Exception\ApiUnavailableException;
 use App\Exception\ClientException;
 use App\Form\RegistrationType;
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Security\User;
 use App\Service\ApiClient;
 use App\Security\AppCustomAuthenticator;
@@ -60,7 +60,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('profile');
         }
 
-        $userDto = new UserDto();
+        $userDto = new UserDTO();
         $form = $this->createForm(RegistrationType::class, $userDto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

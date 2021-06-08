@@ -5,7 +5,8 @@ namespace App\Controller;
 
 
 use App\Exception\ApiUnavailableException;
-use App\Model\UserDto;
+use App\Model\ReportDTO;
+use App\Model\UserDTO;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
 use JMS\Serializer\SerializerInterface;
@@ -32,17 +33,39 @@ class UserController extends AbstractController
     /**
      * @Route("/profile", name="profile")
      */
-    public function index(): Response
+    public function profile(): Response
     {
         try {
             $response = $this->apiClient->getCurrentUser($this->getUser(), $this->decodingJwt);
-            $userDto = $this->serializer->deserialize($response, UserDto::class, 'json');
-        } catch (ApiUnavailableException $e) {
-            throw new \Exception($e->getMessage());
+            $userDto = $this->serializer->deserialize($response, UserDTO::class, 'json');
+        } catch (ApiUnavailableException | \Exception $e) {
+            throw new \Exception($e->getMessage(), $e->getCode());
         }
 
         return $this->render('user/profile.html.twig', [
             'userDto' => $userDto,
+        ]);
+    }
+
+    /**
+     * @Route("/history", name="history")
+     */
+    public function history(): Response
+    {
+        try {
+            $response = $this->apiClient->getHistory($this->getUser(), $this->decodingJwt);
+            if ($response) {
+                $reportsDto = $this->serializer->deserialize($response, 'array<App\Model\ReportDTO>', 'json');
+            } else {
+                $reportsDto = null;
+            }
+        } catch (ApiUnavailableException | \Exception $e) {
+            throw new \Exception($e);
+        }
+
+        return $this->render('user/history.html.twig', [
+            'reportsDto' => $reportsDto,
+            'host' => $_ENV['API'] . ':82/',
         ]);
     }
 }

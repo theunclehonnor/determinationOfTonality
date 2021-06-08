@@ -3,7 +3,7 @@
 
 namespace App\Tests\Authorization;
 
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
 use App\Tests\AbstractTest;
@@ -23,8 +23,8 @@ class Auth extends AbstractTest
 
     public function auth(string $data)
     {
-        /** @var UserDto $userDto */
-        $userDto = $this->serializer->deserialize($data, UserDto::class, 'json');
+        /** @var UserDTO $userDto */
+        $userDto = $this->serializer->deserialize($data, UserDTO::class, 'json');
         // Заменяем сервис
         $this->getBillingClient();
         $client = self::getClient();

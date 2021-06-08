@@ -5,7 +5,7 @@ namespace App\Model;
 
 use JMS\Serializer\Annotation as Serializer;
 
-class UserDto
+class UserDTO
 {
     /**
      * @Serializer\Type("string")

@@ -5,9 +5,10 @@ namespace App\Service;
 
 use App\Exception\ApiUnavailableException;
 use App\Exception\ClientException;
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Security\User;
 use JMS\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiClient
 {
@@ -20,9 +21,9 @@ class ApiClient
         $this->serializer = $serializer;
     }
 
-    public function refreshToken(string $refreshToken): UserDto
+    public function refreshToken(string $refreshToken): UserDTO
     {
-        $userDto = new UserDto();
+        $userDto = new UserDTO();
         $userDto->setRefreshToken($refreshToken);
         $resp = $this->serializer->serialize($userDto, 'json');
 
@@ -42,8 +43,8 @@ class ApiClient
         }
         curl_close($query);
 
-        /** @var UserDto $userDto */
-        $userDto = $this->serializer->deserialize($response, UserDto::class, 'json');
+        /** @var UserDTO $userDto */
+        $userDto = $this->serializer->deserialize($response, UserDTO::class, 'json');
 
         return $userDto;
     }
@@ -51,7 +52,7 @@ class ApiClient
     /**
      * @throws ApiUnavailableException
      */
-    public function auth(string $request): UserDto
+    public function auth(string $request): UserDTO
     {
         // Запрос в сервис биллинг
         $query = curl_init($this->startUri . '/api/v1/auth');
@@ -76,8 +77,8 @@ class ApiClient
                 throw new ApiUnavailableException('Проверьте правильность введёного логина и пароля');
             }
         }
-        /** @var UserDto $userDto */
-        $userDto = $this->serializer->deserialize($response, UserDto::class, 'json');
+        /** @var UserDTO $userDto */
+        $userDto = $this->serializer->deserialize($response, UserDTO::class, 'json');
 
         return $userDto;
     }
@@ -88,7 +89,7 @@ class ApiClient
     public function getCurrentUser(User $user, DecodingJwt $decodingJwt)
     {
         // Декодируем токен
-        $decodingJwt->decoding($user->getApiToken());
+//        $decodingJwt->decoding($user->getApiToken());
 
         // Запрос в сервис биллинг, получение данных
         $query = curl_init($this->startUri . '/api/v1/users/profile');
@@ -119,7 +120,7 @@ class ApiClient
      * @throws ApiUnavailableException
      * @throws ClientException
      */
-    public function register(UserDto $dataUser): UserDto
+    public function register(UserDTO $dataUser): UserDTO
     {
         $dataSerialize = $this->serializer->serialize($dataUser, 'json');
         // Запрос в сервис биллинг
@@ -150,9 +151,47 @@ class ApiClient
         }
         curl_close($query);
 
-        /** @var UserDto $userDto */
-        $userDto = $this->serializer->deserialize($response, UserDto::class, 'json');
+        /** @var UserDTO $userDto */
+        $userDto = $this->serializer->deserialize($response, UserDTO::class, 'json');
 
         return $userDto;
+    }
+
+    /**
+     * @throws ApiUnavailableException
+     */
+    public function getHistory(User $user, DecodingJwt $decodingJwt)
+    {
+        // Декодируем токен
+//        $decodingJwt->decoding($user->getApiToken());
+
+        // Запрос в сервис биллинг, получение данных
+        $query = curl_init($this->startUri . '/api/v1/users/history');
+        curl_setopt($query, CURLOPT_HTTPGET, 1);
+        curl_setopt($query, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($query, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $user->getApiToken()
+        ]);
+        $response = curl_exec($query);
+        // Ошибка с биллинга
+        if ($response === false) {
+            throw new ApiUnavailableException('Сервис временно недоступен. 
+            Попробуйте авторизоваться позднее');
+        }
+        curl_close($query);
+
+        // Ответа от сервиса
+        $result = json_decode($response, true);
+        if (isset($result['code'])) {
+            if ($result['code'] === Response::HTTP_NOT_FOUND) {
+                $response = null;
+            } else {
+                throw new ApiUnavailableException('Сервис временно недоступен. 
+        Попробуйте зарегистрироваться позднее');
+            }
+        }
+
+        return $response;
     }
 }

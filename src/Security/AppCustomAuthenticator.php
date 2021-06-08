@@ -3,7 +3,7 @@
 namespace App\Security;
 
 use App\Exception\ApiUnavailableException;
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -75,7 +75,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $userDto = new UserDto();
+        $userDto = new UserDTO();
         $userDto->setUsername($credentials['email']);
         $userDto->setPassword($credentials['password']);
 

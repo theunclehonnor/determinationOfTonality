@@ -3,7 +3,7 @@
 namespace App\Security;
 
 use App\Exception\ApiUnavailableException;
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
 use DateInterval;

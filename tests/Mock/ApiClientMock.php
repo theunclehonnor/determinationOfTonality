@@ -9,7 +9,7 @@ use App\Exception\ClientException;
 use App\Model\CourseDto;
 use App\Model\PayDto;
 use App\Model\TransactionDto;
-use App\Model\UserDto;
+use App\Model\UserDTO;
 use App\Security\User;
 use App\Service\ApiClient;
 use App\Service\DecodingJwt;
@@ -19,10 +19,10 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ApiClientMock extends ApiClient
 {
-    /** @var UserDto */
+    /** @var UserDTO */
     private $userDefault;
 
-    /** @var UserDto */
+    /** @var UserDTO */
     private $userSuperAdmin;
 
     /** @var CourseDto[]  */
@@ -38,14 +38,14 @@ class ApiClientMock extends ApiClient
         parent::__construct($serializer);
 
         // Обычный пользователь
-        $this->userDefault = new UserDto();
+        $this->userDefault = new UserDTO();
         $this->userDefault->setUsername('user@yandex.ru');
         $this->userDefault->setPassword('user123');
         $this->userDefault->setRoles(["ROLE_USER"]);
         $this->userDefault->setBalance(50000);
 
         // Супер админ пользователь
-        $this->userSuperAdmin = new UserDto();
+        $this->userSuperAdmin = new UserDTO();
         $this->userSuperAdmin->setUsername('admin@yandex.ru');
         $this->userSuperAdmin->setPassword('admin123');
         $this->userSuperAdmin->setRoles(["ROLE_SUPER_ADMIN"]);
@@ -141,10 +141,10 @@ class ApiClientMock extends ApiClient
         $this->userDefault->setBalance($this->userDefault->getBalance() - $transactionPayment->getAmount());
     }
 
-    public function auth(string $request): UserDto
+    public function auth(string $request): UserDTO
     {
-        /** @var UserDto $userDto  */
-        $userDto =$this->serializer->deserialize($request, UserDto::class, 'json');
+        /** @var UserDTO $userDto  */
+        $userDto =$this->serializer->deserialize($request, UserDTO::class, 'json');
         if ($userDto->getUsername() === $this->userDefault->getUsername() &&
             $userDto->getPassword() === $this->userDefault->getPassword()) {
             $userDto->setToken($this->generateToken('ROLE_USER', $this->userDefault->getUsername()));
@@ -162,7 +162,7 @@ class ApiClientMock extends ApiClient
         throw new ApiUnavailableException('Проверьте правильность введёного логина и пароля');
     }
 
-    public function register(UserDto $dataUser): UserDto
+    public function register(UserDTO $dataUser): UserDTO
     {
         // Симуляция обработки уже существующих пользователей
         if ($dataUser->getUsername() === $this->userDefault->getUsername()|

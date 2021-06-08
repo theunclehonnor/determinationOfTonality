@@ -15,17 +15,7 @@ p {
   margin: 0;
 }
 
-// course_index
-.line {
-  border: 1px solid lightgray;
-  width: 100%;
-}
-
-// a btn margin
-.a_margin {
-  margin-right: 5px;
-}
-
+/* Main */
 // font h1
 .font_title {
   font-size: 30px;
@@ -38,6 +28,28 @@ p {
   border-radius: 27px;
 }
 
+/* Header */
+//logo
+a.logo {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  overflow: hidden;
+  transition: clip-path 275ms ease;
+  &:hover::before {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  &::before {
+    position: absolute;
+    content: attr(data-content);
+    color: #39FB86;
+    text-decoration: none;
+    clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+    transition: clip-path 275ms ease;
+  }
+}
+
+/* Profile */
 // font profile
 .profile__title {
   font-size: 15px;
@@ -45,4 +57,12 @@ p {
 }
 .profile__line {
   border: 1px solid gray;
+}
+//history
+.history__img {
+  max-height: 260px;
+  width: auto;
+}
+.font__date {
+  font-size: 14px;
 }
