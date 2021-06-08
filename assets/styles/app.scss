@@ -60,9 +60,13 @@ a.logo {
 }
 //history
 .history__img {
-  max-height: 260px;
+  max-height: 250px;
   width: auto;
 }
 .font__date {
   font-size: 14px;
+}
+.form-history_style {
+  box-shadow: -7px 9px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
 }

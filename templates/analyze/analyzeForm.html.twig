@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Determination Of Tonality / Анализ данных{% endblock %}
+
+{% block body %}
+    <h1 class="font_title text-center mt-4">Определение тональности текстовых отзывов</h1>
+    <p class="text-center">Тут будет информация про методы, классификаторы и т.д.</p>
+    {% if errors is defined %}
+        <div class="alert alert-danger">
+            <p class="m-0"> {{ errors }}</p>
+        </div>
+    {% endif %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-outline-dark" type="submit">
+            Применить
+        </button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

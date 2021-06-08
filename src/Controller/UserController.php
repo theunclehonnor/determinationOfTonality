@@ -66,6 +66,7 @@ class UserController extends AbstractController
         return $this->render('user/history.html.twig', [
             'reportsDto' => $reportsDto,
             'host' => $_ENV['API'] . ':82/',
+//            'host' => 'file:///home/artem/diplom/determinationOfTonality_API/public/'
         ]);
     }
 }

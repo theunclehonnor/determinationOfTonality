@@ -5,6 +5,7 @@
         </a>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="navbar__item">
+                <a href="{{ path('analyze') }}" class="btn btn-outline-dark" role="button">Анализ данных</a>
                 <a href="{{ path('profile') }}" class="btn btn-outline-dark" role="button">Профиль</a>
                 <a href="{{ path('history') }}" class="btn btn-outline-dark" role="button">История</a>
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-dark" role="button">Выход</a>

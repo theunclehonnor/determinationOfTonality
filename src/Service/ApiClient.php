@@ -177,7 +177,7 @@ class ApiClient
         // Ошибка с биллинга
         if ($response === false) {
             throw new ApiUnavailableException('Сервис временно недоступен. 
-            Попробуйте авторизоваться позднее');
+            Попробуйте позднее');
         }
         curl_close($query);
 
@@ -188,10 +188,39 @@ class ApiClient
                 $response = null;
             } else {
                 throw new ApiUnavailableException('Сервис временно недоступен. 
-        Попробуйте зарегистрироваться позднее');
+        Попробуйте позднее');
             }
         }
 
         return $response;
+    }
+
+    public function analyze(User $user, array $data, string $method)
+    {
+        $response = $this->serializer->serialize($data, 'json');
+        $query = curl_init($this->startUri . '/api/v1/'.$method);
+        curl_setopt($query, CURLOPT_POST, 1);
+        curl_setopt($query, CURLOPT_POSTFIELDS, $response);
+        curl_setopt($query, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($query, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $user->getApiToken(),
+            'Content-Length: ' . strlen($response)
+        ]);
+        $response = curl_exec($query);
+        // Ошибка с биллинга
+        if ($response === false) {
+            throw new ApiUnavailableException('Сервис временно недоступен. 
+            Попробуйте позднее');
+        }
+        curl_close($query);
+
+        // Ответа от сервиса
+        $result = json_decode($response, true);
+        if (isset($result['code']) && $result['code'] !== Response::HTTP_CREATED) {
+                throw new ApiUnavailableException($result['message'], $result['code']);
+        }
+
+        return $result;
     }
 }
