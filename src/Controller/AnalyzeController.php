@@ -23,6 +23,7 @@ class AnalyzeController extends AbstractController
      */
     public function analyze(Request $request, ApiClient $apiClient): Response
     {
+//        $modelsArray = $apiClient->getDistinctModel($this->getUser());
         $analyzeDto = new AnalyzeDTO();
         $analyzeDto->setResource(new ResourceDTO());
         $analyzeDto->setModel(new ModelDTO());

@@ -249,4 +249,34 @@ class ApiClient
 
         return $result;
     }
+
+//    /**
+//     * @throws ApiUnavailableException
+//     */
+//    public function getDistinctModel(User $user)
+//    {
+//        // Запрос в сервис биллинг, получение данных
+//        $query = curl_init($this->startUri . '/api/v1/model/distinct');
+//        curl_setopt($query, CURLOPT_HTTPGET, 1);
+//        curl_setopt($query, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($query, CURLOPT_HTTPHEADER, [
+//            'Content-Type: application/json',
+//            'Authorization: Bearer ' . $user->getApiToken()
+//        ]);
+//        $response = curl_exec($query);
+//        // Ошибка с биллинга
+//        if ($response === false) {
+//            throw new ApiUnavailableException('Сервис временно недоступен.
+//            Попробуйте позднее');
+//        }
+//        curl_close($query);
+//
+//        // Ответа от сервиса
+//        $result = json_decode($response, true);
+//        if (isset($result['code'])) {
+//            throw new ApiUnavailableException($result['message'], $result['code']);
+//        }
+//
+//        return $result;
+//    }
 }
