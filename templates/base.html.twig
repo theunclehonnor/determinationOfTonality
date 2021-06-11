@@ -16,11 +16,15 @@
         {% endblock %}
     </head>
     <body class="body_height">
-    {% include('./default/header.html.twig') %}
+    <div class="wrapper">
+        {% include('./default/header.html.twig') %}
 
-    {% block body %}
-    {% endblock %}
+        <div class="content">
+            {% block body %}
+            {% endblock %}
+        </div>
 
-    {% include('./default/footer.html.twig') %}
+        {% include('./default/footer.html.twig') %}
+    </div>
     </body>
 </html>

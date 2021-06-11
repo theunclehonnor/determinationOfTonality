@@ -18,7 +18,8 @@ p {
 /* Main */
 // font h1
 .font_title {
-  font-size: 30px;
+  font-size: 24px;
+  line-height: 45px;
 }
 
 // form
@@ -30,7 +31,7 @@ p {
 
 /* Header */
 //logo
-a.logo {
+.logo {
   position: relative;
   display: inline-block;
   text-decoration: none;
@@ -44,20 +45,27 @@ a.logo {
   &::before {
     position: absolute;
     content: attr(data-content);
-    color: #39FB86;
+    color: #17a2b8;
     text-decoration: none;
     clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
     transition: clip-path 275ms ease;
   }
+}.content {
+   flex: 1 0 auto;
+ }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
-
+.content_padding {
+  padding-left: 150px;
+  padding-right: 150px;
+}
 /* Footer */
 .footer {
   background-color: #f8f9fa;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  flex: 0 0 auto;
   height: 50px;
 }
 
@@ -81,4 +89,24 @@ a.logo {
 .form-history_style {
   box-shadow: -7px 9px 12px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
+}
+
+/* INDEX */
+.bg-vectorize {
+  background-color: #f8f9fa;
+}
+.vectorize_margin {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.bag-of-words__title {
+  line-height: 30px;
+  text-indent: 45px;
+}
+
+@media (max-width: 1024px) {
+  .content_padding {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 }

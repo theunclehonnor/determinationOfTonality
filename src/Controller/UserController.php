@@ -65,8 +65,22 @@ class UserController extends AbstractController
 
         return $this->render('user/history.html.twig', [
             'reportsDto' => $reportsDto,
-            'host' => $_ENV['API'] . ':82/',
+            'host' => 'http://'.$_ENV['API'] . ':82/',
 //            'host' => 'file:///home/artem/diplom/determinationOfTonality_API/public/'
         ]);
+    }
+
+    /**
+     * @Route("/adminka", name="adminka")
+     */
+    public function adminka(): Response
+    {
+        try {
+            //
+        } catch (ApiUnavailableException | \Exception $e) {
+            throw new \Exception($e);
+        }
+
+        return $this->redirect('http://'.$_ENV['API'] . ':82/login');
     }
 }
