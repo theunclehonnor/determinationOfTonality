@@ -18,6 +18,11 @@ class ReportDTO
     private $file;
 
     /**
+     * @Serializer\Type("float")
+     */
+    private $accuracy;
+
+    /**
      * @var ?UserDTO
      * @Serializer\Type("App\Model\UserDTO")
      */
@@ -79,5 +84,15 @@ class ReportDTO
     public function setObjectInQuestion(ObjectInQuestionDTO $objectInQuestion): void
     {
         $this->objectInQuestion = $objectInQuestion;
+    }
+
+    public function getAccuracy()
+    {
+        return $this->accuracy;
+    }
+
+    public function setAccuracy($accuracy): void
+    {
+        $this->accuracy = $accuracy;
     }
 }

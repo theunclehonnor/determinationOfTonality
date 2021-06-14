@@ -99,9 +99,17 @@ p {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.bag-of-words__title {
+.p__title {
   line-height: 30px;
   text-indent: 45px;
+  font-size: 16px;
+}
+.classificator_margin {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.classificator_bg {
+  background-color: #f8f9fa;
 }
 
 @media (max-width: 1024px) {

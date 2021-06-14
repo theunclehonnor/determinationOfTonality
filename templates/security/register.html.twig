@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <div class="row justify-content-center m-0 mt-5">
+    <div class="row justify-content-center m-0 mt-5 mb-5">
         <div class="col-5 d-flex flex-column form-security_style p-5">
 
             <h3 class="text-center mb-4">Регистрация</h3>
@@ -58,6 +58,9 @@
                 <div class="col-8">
                     {{ form_widget(form.nameCompany, { 'attr': {'class': 'form-control'} }) }}
                 </div>
+            </div>
+            <div class="form-group row d-flex justify-content-center">
+                {{ form_widget(form.agreeTerms, {'attr': {'onMouseDown':'this.isChecked=this.checked','onClick':'this.checked=!this.isChecked;', 'style': 'cursor: pointer;'} }) }}
             </div>
 
             <div class="d-flex justify-content-center">

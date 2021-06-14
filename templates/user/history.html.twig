@@ -28,6 +28,15 @@
                            </div>
                            <ul class="list-group list-group-flush">
                                <li class="list-group-item">
+                                   <p><strong>Точность:</strong>
+                                       {% if report.accuracy > 50%}
+                                            <span style="color: rgba(59,218,0, 1);">{{ report.accuracy }}%</span>
+                                       {% else %}
+                                           <span style="color: rgba(255,7,0, 1);">{{ report.accuracy }}%</span>
+                                       {% endif %}
+                                   </p>
+                               </li>
+                               <li class="list-group-item">
                                    <p><strong>Модель:</strong> {{ report.objectInQuestion.model.name }}</p>
                                    <p><strong>Корпус данных:</strong> {{ report.objectInQuestion.model.dataSet }}</p>
                                    <p><strong>Классификатор:</strong> {{ report.objectInQuestion.model.classificator }}</p>

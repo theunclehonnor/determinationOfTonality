@@ -8,16 +8,18 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('adminka') }}" class="btn btn-outline-dark" role="button">Административная панель</a>
                 {% endif %}
-{#                <a href="{{ path('analyze') }}" class="btn btn-outline-dark" role="button">Анализ данных</a>#}
+                <a href="{{ path('analyze') }}" class="btn btn-outline-dark" role="button">Анализ данных</a>
                 <a href="{{ path('profile') }}" class="btn btn-outline-dark" role="button">Профиль</a>
                 <a href="{{ path('history') }}" class="btn btn-outline-dark" role="button">История</a>
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-dark" role="button">Выход</a>
             </div>
         {% else %}
-            <div class="navbar__item">
-                <a href="{{ path('app_login') }}" class="btn btn-outline-dark" role="button">Войти</a>
-                <a href="{{ path('app_register') }}" class="btn btn-outline-dark" role="button">Регистрация</a>
-            </div>
+            {% if app.request.get('_route') == 'home' %}
+                <div class="navbar__item w-25 d-flex justify-content-around">
+                    <a href="#method" class="text-black-50" role="button">Методы</a>
+                    <a href="#classificators" class="text-black-50" role="button">Классификаторы</a>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 </nav>
