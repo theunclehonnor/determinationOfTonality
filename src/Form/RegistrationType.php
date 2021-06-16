@@ -83,7 +83,7 @@ class RegistrationType extends AbstractType
             ->add('agreeTerms', RadioType::class, [
                 'required' => false,
                 'mapped' => false,
-                'label' => 'Согласине на обработку персональных данных',
+                'label' => 'Согласие на обработку персональных данных',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Регистрация без согласия невозможна.'

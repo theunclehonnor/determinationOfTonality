@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -48,7 +49,7 @@ class AnalyzeType extends AbstractType
                         'label' => false,
                         'by_reference' => true
                     ])
-                    ->add('link', TextType::class,
+                    ->add('link', UrlType::class,
                         [
                             'label' => 'Ссылка на ресурс',
                         ]
