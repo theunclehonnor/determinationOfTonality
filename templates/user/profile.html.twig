@@ -3,57 +3,45 @@
 {% block title %}Determination Of Tonality / Профиль{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center align-items-center h-75 m-auto">
-        <div class="row d-flex flex-column form-security_style p-5 w-50">
-            <h3 class="text-center mb-4">Профиль</h3>
-            <div class="d-flex justify-content-center">
-                <div class="col-6 d-flex flex-column justify-content-between">
-                    <div class="mb-2">
-                        <p class="profile__title">Фамилия:</p>
-                        <p>{{ userDto.surname }}</p>
-                        <div class="profile__line w-100"></div>
-                    </div>
-                    <div class="mb-2">
-                        <p class="profile__title">Имя:</p>
-                        <p>{{ userDto.name }}</p>
-                        <div class="profile__line w-100"></div>
-                    </div>
-                    <div class="mb-2">
-                        <p class="profile__title">Отчество:</p>
-                        {% if userDto.patronymic  %}
-                            <p>{{ userDto.patronymic }}</p>
-                        {% else %}
+        <div class="d-flex justify-content-center align-items-center mt-5 mb-lg-0 mb-5">
+            <div class="col-lg-6 col-9 d-flex flex-column form-security_style p-lg-5 p-4">
+                <h3 class="text-center mb-4">Профиль</h3>
+                <div class="d-flex justify-content-center">
+                    <div class="col-6 d-flex flex-column justify-content-between">
+                        <div class="mb-2">
+                            <p class="profile__title">Фамилия:</p>
+                            <p>Рыбин</p>
+                            <div class="profile__line w-100"></div>
+                        </div>
+                        <div class="mb-2">
+                            <p class="profile__title">Имя:</p>
+                            <p>Артем</p>
+                            <div class="profile__line w-100"></div>
+                        </div>
+                        <div class="mb-2">
+                            <p class="profile__title">Отчество:</p>
                             <p>-</p>
-                        {% endif %}
-                        <div class="profile__line w-100"></div>
+                            <div class="profile__line w-100"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 d-flex flex-column justify-content-between">
-                    <div class="mb-2">
-                        <p class="profile__title">Email:</p>
-                        <p>{{ userDto.email }}</p>
-                        <div class="profile__line w-100"></div>
-                    </div>
-                    <div class="mb-2">
-                        <p class="profile__title">Название компании:</p>
-                        {% if userDto.nameCompany %}
-                            <p>{{ userDto.nameCompany }}</p>
-                        {% else %}
+                    <div class="col-6 d-flex flex-column justify-content-between">
+                        <div class="mb-2">
+                            <p class="profile__title">Email:</p>
+                            <p>user@yandex.ru</p>
+                            <div class="profile__line w-100"></div>
+                        </div>
+                        <div class="mb-2">
+                            <p class="profile__title">Название компании:</p>
                             <p>-</p>
-                        {% endif %}
-                        <div class="profile__line w-100"></div>
-                    </div>
-                    <div class="mb-2">
-                        <p class="profile__title">Роль пользователя:</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <p>Администратор</p>
-                        {% else %}
+                            <div class="profile__line w-100"></div>
+                        </div>
+                        <div class="mb-2">
+                            <p class="profile__title">Роль пользователя:</p>
                             <p>Клиент</p>
-                        {% endif %}
-                        <div class="profile__line w-100"></div>
+                            <div class="profile__line w-100"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}

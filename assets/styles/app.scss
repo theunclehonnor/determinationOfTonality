@@ -31,6 +31,15 @@ p {
 
 /* Header */
 //logo
+.display-bar {
+  display: none;
+}
+.display-buttons {
+  display: block;
+}
+.display-methods {
+  display: flex;
+}
 .logo {
   position: relative;
   display: inline-block;
@@ -117,5 +126,14 @@ p {
   .content_padding {
     padding-left: 50px;
     padding-right: 50px;
+  }
+  .display-bar {
+    display: block;
+  }
+  .display-buttons {
+    display: none;
+  }
+  .display-methods {
+    display: none;
   }
 }

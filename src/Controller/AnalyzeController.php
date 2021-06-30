@@ -51,6 +51,8 @@ class AnalyzeController extends AbstractController
 
                 $response = $apiClient->createReport($this->getUser(), $response['id_report']);
 
+                // flash message
+                $this->addFlash('success', 'Анализ об объекте рассмотрения успешно проведен!');
                 return $this->redirectToRoute('history');
             } catch (ApiUnavailableException | \Exception $e) {
                 return $this->render('analyze/analyzeForm.html.twig', [

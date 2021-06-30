@@ -3,65 +3,42 @@
 {% block title %}Авторизация/StudyOn{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center align-items-center h-75 m-auto">
-        <div class="col-4 d-flex flex-column form-security_style p-5">
-            <h3 class="text-center mb-4">Авторизация</h3>
+        <div class="d-flex justify-content-center align-items-center mt-5 mb-lg-0 mb-5">
+            <div class="col-lg-4 col-9 d-flex flex-column form-security_style p-5">
+                <h3 class="text-center mb-4">Авторизация</h3>
 
-            <form method="post">
-                {% if error %}
-                    <div class="alert alert-danger" id="errors">
-                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                <form method="post">
+
+
+                    <div class="form-group row">
+                        <label for="inputEmail" class="text-center col-sm-2">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" value="" name="email" id="inputEmail" class="form-control" required="" autofocus="">
+                        </div>
                     </div>
-                {% endif %}
-
-
-                <div class="form-group row">
-                    <label for="inputEmail" class="text-center col-sm-2">Email</label>
-                    <div class="col-10">
-                        <input
-                                type="email"
-                                value="{{ last_username }}"
-                                name="email" id="inputEmail"
-                                class="form-control"
-                                required autofocus
-                        />
+                    <div class="form-group row">
+                        <label for="inputPassword" class="text-center col-sm-2">Пароль</label>
+                        <div class="col-sm-10">
+                            <input type="password" name="password" id="inputPassword" class="form-control" required="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword" class="text-center col-sm-2">Пароль</label>
-                    <div class="col-sm-10">
-                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+                    <input type="hidden" name="_csrf_token" value="7se-brANWk39UuPLlOKsDRmo7uV6t6rtYlAtAtG0wMY">
+
+                    <div class="d-flex justify-content-center mb-4">
+                        <input type="checkbox" id="remember_me" name="_remember_me" checked="">
+                        <label for="remember_me" class="m-0 ml-2">Запомнить меня</label>
                     </div>
-                </div>
 
-                <input type="hidden" name="_csrf_token"
-                       value="{{ csrf_token('authenticate') }}"
-                >
-
-                {#
-                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                See https://symfony.com/doc/current/security/remember_me.html
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
-                    </label>
-                </div>
-                #}
-                <div class="d-flex justify-content-center mb-4">
-                    <input type="checkbox" id="remember_me" name="_remember_me" checked/>
-                    <label for="remember_me" class="m-0 ml-2">Запомнить меня</label>
-                </div>
-
-                <div class="d-flex w-100 justify-content-center">
-                    <button class="btn btn-outline-dark pl-5 pr-5" type="submit">
-                        Войти
-                    </button>
-                </div>
-                <div class="d-flex w-100 justify-content-center mt-2">
-                    <a href="{{ path('app_register') }}">Регистрация</a>
-                </div>
-            </form>
+                    <div class="d-flex w-100 justify-content-center">
+                        <button class="btn btn-outline-dark pl-5 pr-5" type="submit">
+                            Войти
+                        </button>
+                    </div>
+                    <div class="d-flex w-100 justify-content-center mt-2">
+                        <a href="/register">Регистрация</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 {% endblock %}
