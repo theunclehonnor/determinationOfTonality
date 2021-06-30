@@ -8,62 +8,65 @@
 
                 <h3 class="text-center mb-4">Регистрация</h3>
 
+                {% if errors is defined %}
+                    <div class="alert alert-danger">
+                        <p class="m-0"> {{ errors }}</p>
+                    </div>
+                {% endif %}
 
-                <form name="registration" method="post">
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_username">Email</label>
-                        <div class="col-sm-8">
-                            <input type="email" id="registration_username" name="registration[username]" class="form-control form-control">
-                        </div>
+                {{ form_start(form) }}
+                {#            {{ form_widget(form) }}#}
+                <div class="form-group row">
+                    {{ form_label(form.username, form.username, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_password_first">Пароль</label>
-                        <div class="col-sm-8">
-                            <input type="password" id="registration_password_first" name="registration[password][first]" class="form-control form-control">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(form.password.first, form.password.first, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.password.first, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_password_second">Повторите пароль</label>
-                        <div class="col-sm-8">
-                            <input type="password" id="registration_password_second" name="registration[password][second]" class="form-control form-control">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(form.password.second, form.password.second, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.password.second, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_surname">Фамилия</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="registration_surname" name="registration[surname]" class="form-control form-control">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(form.surname, form.surname, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.surname, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_name">Имя</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="registration_name" name="registration[name]" class="form-control form-control">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(form.name, form.name, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_patronymic">Отчество</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="registration_patronymic" name="registration[patronymic]" class="form-control form-control">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(form.patronymic, form.patronymic, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.patronymic, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row">
-                        <label class="text-center col-sm-4" for="registration_nameCompany">Название компании</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="registration_nameCompany" name="registration[nameCompany]" class="form-control form-control">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(form.nameCompany, form.nameCompany, { 'label_attr': {'class': 'text-center col-sm-4'} }) }}
+                    <div class="col-sm-8">
+                        {{ form_widget(form.nameCompany, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                    <div class="form-group row d-flex justify-content-center">
-                        <div class="form-check">        <input type="radio" id="registration_agreeTerms" name="registration[agreeTerms]" onmousedown="this.isChecked=this.checked" onclick="this.checked=!this.isChecked;" style="cursor: pointer;" class="form-check-input" value="1">
-                            <label class="form-check-label" for="registration_agreeTerms">Согласие на обработку персональных данных</label></div>
-                    </div>
-
-                    <div class="d-flex justify-content-center">
-                        <button class="btn btn-outline-dark" type="submit">
-                            Зарегистрироваться
-                        </button>
-                    </div>
-                    <input type="hidden" id="registration__token" name="registration[_token]" value="5BgJ4cRf4Hniojc5mhPAHtrHkVJbd76Myw2GRDjzeA8"></form>
-
+                </div>
+                <div class="form-group row d-flex justify-content-center">
+                    {{ form_widget(form.agreeTerms, {'attr': {'onMouseDown':'this.isChecked=this.checked','onClick':'this.checked=!this.isChecked;', 'style': 'cursor: pointer;'} }) }}
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-outline-dark" type="submit">
+                        Зарегистрироваться
+                    </button>
+                </div>
+                {{ form_end(form) }}
             </div>
         </div>
 {% endblock %}
